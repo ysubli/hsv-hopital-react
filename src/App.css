@@ -16,3 +16,44 @@ p {
   color: #7f8c8d;
   font-size: 1.2rem;
 }
+
+.carousel-container {
+  max-width: 800px;
+  margin: 30px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.carousel-container img {
+  height: 400px;
+  object-fit: cover;
+}
+
+.rdv-button-container {
+  margin: 30px auto;
+}
+
+.rdv-button {
+  background-color: #023395;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rdv-button:hover {
+  background-color: #2980b9;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.rdv-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
