@@ -27,6 +27,7 @@ const Home = () => {
       <h1>Bienvenue à l'Hôpital HSV</h1>
       <p>Votre santé, notre priorité.</p>
       
+
       <div className="rdv-button-container">
         <button className="rdv-button" onClick={() => window.location.href='#prise'}>
           Prendre RDV

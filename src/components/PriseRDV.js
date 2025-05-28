@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/PriseRDV.css';
+import '../styles/Modal.css';
 
 const PriseRDV = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,9 @@ const PriseRDV = () => {
     date: '',
     service: ''
   });
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -32,17 +36,38 @@ const PriseRDV = () => {
       const data = await response.json();
       
       if (response.ok) {
-        alert('Rendez-vous enregistré avec succès!');
+        setIsSuccess(true);
+        setModalMessage('Rendez-vous enregistré avec succès!');
+        setShowModal(true);
         setFormData({ nomComplet: '', email: '', date: '', service: '' });
       } else {
-        alert(`Erreur: ${data.error || 'Erreur inconnue'}`);
+        setIsSuccess(false);
+        setModalMessage(`Erreur: ${data.error || 'Erreur inconnue'}`);
+        setShowModal(true);
         console.error('Détails de l\'erreur:', data);
       }
     } catch (error) {
       console.error('Erreur de connexion:', error);
-      alert('Erreur de connexion au serveur. Vérifiez que le serveur backend est bien démarré.');
+      setIsSuccess(false);
+      setModalMessage('Erreur de connexion au serveur. Vérifiez que le serveur backend est bien démarré.');
+      setShowModal(true);
     }
   };
+
+  const Modal = ({ message, onClose, isSuccess }) => (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <button className="modal-close" onClick={onClose}>&times;</button>
+        <div className="modal-header">
+          <h2 style={{ color: isSuccess ? '#28a745' : '#dc3545' }}>
+            {isSuccess ? 'Succès' : 'Erreur'}
+          </h2>
+        </div>
+        <p>{message}</p>
+        <button className="modal-button" onClick={onClose}>Fermer</button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="prise-rdv">
@@ -94,6 +119,13 @@ const PriseRDV = () => {
         </div>
         <button type="submit">Confirmer le rendez-vous</button>
       </form>
+      {showModal && (
+        <Modal 
+          message={modalMessage} 
+          onClose={() => setShowModal(false)}
+          isSuccess={isSuccess}
+        />
+      )}
     </div>
   );
 };
